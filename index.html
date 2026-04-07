@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Solver Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Maze Solver Pro</h1>
+            <p>Interactive algorithm explorer for finding optimal paths.</p>
+        </header>
+
+        <div class="main-content">
+            <aside class="controls-panel">
+                <div class="control-group">
+                    <h3>Grid Dimensions</h3>
+                    <div class="input-row">
+                        <label>Rows <input type="number" id="rows-input" value="15" min="5" max="40"></label>
+                        <label>Cols <input type="number" id="cols-input" value="20" min="5" max="40"></label>
+                    </div>
+                    <div class="btn-group">
+                        <button id="generate-btn" class="secondary-btn">New Grid</button>
+                        <button id="clear-grid-btn" class="secondary-btn">Clear All</button>
+                    </div>
+                </div>
+
+                <div class="control-group interaction-modes">
+                    <h3>Drawing Mode</h3>
+                    <div class="radio-group">
+                        <label class="radio-label active"><input type="radio" name="mode" value="wall" checked> <span
+                                class="swatch swatch-wall"></span> Draw Walls</label>
+                        <label class="radio-label"><input type="radio" name="mode" value="start"> <span
+                                class="swatch swatch-start"></span> Place Start</label>
+                        <label class="radio-label"><input type="radio" name="mode" value="goal"> <span
+                                class="swatch swatch-goal"></span> Place Goal</label>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Algorithm Settings</h3>
+                    <select id="algo-select">
+                        <option value="bfs">Breadth First Search (BFS)</option>
+                        <option value="dfs">Depth First Search (DFS)</option>
+                        <option value="dls">Depth Limited Search (DLS)</option>
+                    </select>
+
+                    <div id="depth-limit-container" class="hidden" style="margin-top: 0.75rem;">
+                        <label>Depth Limit <input type="number" id="depth-input" value="20" min="1"></label>
+                    </div>
+                </div>
+
+                <div class="control-actions">
+                    <button id="run-btn" class="action-btn">Run Algorithm</button>
+                    <button id="clear-path-btn" class="secondary-btn">Clear Path</button>
+                </div>
+
+                <div id="results-panel" class="results-panel hidden">
+                    <h3>Analysis Results</h3>
+                    <p><span>Algorithm:</span> <strong id="res-algo">-</strong></p>
+                    <p><span>Status:</span> <strong id="res-status">-</strong></p>
+                    <p><span>Nodes Visited:</span> <strong id="res-visited">-</strong></p>
+                    <p><span>Path Length:</span> <strong id="res-length">-</strong></p>
+                    <button id="view-graph-btn" class="action-btn"
+                        style="margin-top: 1rem; width: 100%; padding: 0.6rem; font-size: 0.95rem;">View Traversal
+                        Graph</button>
+                </div>
+
+                <div id="log-panel" class="results-panel hidden"
+                    style="margin-top: 1rem; max-height: 250px; overflow-y: auto;">
+                    <h3>Step-by-step Log</h3>
+                    <ul id="execution-log"
+                        style="list-style: none; padding: 0; font-size: 0.85rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.4rem;">
+                    </ul>
+                </div>
+            </aside>
+
+            <main class="grid-container">
+                <div id="grid"></div>
+            </main>
+        </div>
+    </div>
+    <!-- Modal Overlay for Fullscreen Graph -->
+    <div id="graph-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h2>Algorithm Traversal Graph</h2>
+                <button id="close-modal-btn" class="close-btn">&times;</button>
+            </header>
+            <div class="modal-body">
+                <div id="graph-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=7"></script>
+</body>
+
+</html>
